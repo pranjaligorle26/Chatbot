@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbox</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f0f0;
+        }
+
+        .chat-container {
+            width: 350px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .chat-box {
+            height: 300px;
+            padding: 10px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .message {
+            margin: 10px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        .chat-input {
+            display: flex;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">Chatbox</div>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        let input = document.getElementById("userInput");
+        let message = input.value;
+
+        if (message.trim() === "") return;
+
+        let chatBox = document.getElementById("chatBox");
+
+        // User message
+        let userMsg = document.createElement("div");
+        userMsg.classList.add("message", "user");
+        userMsg.innerText = message;
+        chatBox.appendChild(userMsg);
+
+        // Bot reply
+        let botMsg = document.createElement("div");
+        botMsg.classList.add("message", "bot");
+
+        if (message.toLowerCase() === "hello") {
+            botMsg.innerText = "Hi! How can I help you?";
+        } else if (message.toLowerCase() === "bye") {
+            botMsg.innerText = "Goodbye!";
+        } else {
+            botMsg.innerText = "I am a simple bot 🤖";
+        }
+
+        setTimeout(() => {
+            chatBox.appendChild(botMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 500);
+
+        input.value = "";
+    }
+</script>
+
+</body>
+</html>
